@@ -31,7 +31,7 @@ const _useCheckout = () => {
 
   useEffect(() => {
     axios
-      .post(`/checkout`, {}, { headers: { Authorization: 2 } })
+      .post(`${import.meta.env.VITE_API_URL}/checkout`, { consumerId: 2 }, { headers: { Authorization: 2 } })
       .then(({ data }) => dispatch({ type: 'UPDATE_CHECKOUT', payload: data }))
       .finally(() => dispatch({ type: 'LOADED' }))
   }, [])

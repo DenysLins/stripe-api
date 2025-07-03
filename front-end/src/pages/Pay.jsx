@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { useCheckout } from '../checkout.js'
+import { useCheckout } from '../checkout.jsx'
 import { Button, Card } from 'antd'
 
 const CARD_ELEMENT_OPTIONS = {

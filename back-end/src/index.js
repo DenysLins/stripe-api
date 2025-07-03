@@ -1,13 +1,15 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-
-const app = express()
-
 const authMiddleware = require('./middleware/auth')
 const paymentRoute = require('./routes/payment')
 
-app.use(cors())
+const app = express()
+app.use(
+  cors({
+    origin: '*',
+  })
+)
 app.use(express.json())
 app.use(authMiddleware)
 app.use('/checkout', paymentRoute)

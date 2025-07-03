@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useCheckout } from '../checkout.js'
+import { useCheckout } from '../checkout.jsx'
 import { Button, Card, Form } from 'antd'
 
 const BillingDetailsPage = () => {

@@ -5,12 +5,12 @@ const { getCartItems } = require('../store')
 
 router.post('/', async (req, res) => {
   const { userId } = req
-  const { customerId } = req.body
+  const customer = await stripe.customers.create()
   const cartItems = await getCartItems(userId)
   const paymentIntent = await stripe.paymentIntents.create({
     amount: cartItems.amount * 100,
-    currency: 'inr',
-    customer: customerId,
+    currency: 'usd',
+    customer: customer.id,
   })
   return res.json({
     checkoutSecret: paymentIntent.client_secret,
