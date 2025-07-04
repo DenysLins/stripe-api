@@ -6,23 +6,31 @@ import CartPage from './pages/Cart'
 
 import { CheckoutProvider } from './checkout.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import BillingDetailsPage from './pages/BillingDetails.jsx'
+import PayPage from './pages/Pay.jsx'
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+
+const options = {
+  mode: 'payment',
+  amount: 1099,
+  currency: 'usd',
+  // Fully customizable with appearance API.
+  appearance: {
+    /*...*/
+  },
+}
 
 const App = () => {
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} options={options}>
       <CheckoutProvider>
         <div className="App">
           <BrowserRouter basename="/checkout">
             <Routes>
               <Route path="/cart" element={<CartPage />} />
-              {/*<Route path="billing-details">*/}
-              {/*  <BillingDetailsPage/>*/}
-              {/*</Route>*/}
-              {/*<Route path="pay">*/}
-              {/*  <PayPage/>*/}
-              {/*</Route>*/}
+              <Route path="/billing-details" element={<BillingDetailsPage />} />
+              <Route path="/pay" element={<PayPage />} />
             </Routes>
           </BrowserRouter>
         </div>

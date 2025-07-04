@@ -1,0 +1,27 @@
+.app-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  min-width: 640px;
+}
+
+.billing-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 12px 0px;
+}
+
+.billing-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 540px;
+}
+
+.billing-button {
+  margin: 24px 0px;
+  width: 540px;
+}

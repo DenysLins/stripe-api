@@ -1,48 +1,40 @@
-import { useState } from 'react'
 import { useCheckout } from '../checkout.jsx'
-import { Button, Card, Form } from 'antd'
+import { Button, Card } from 'antd'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router'
+import './Pages.css'
 
 const BillingDetailsPage = () => {
-  const history = useHistory()
+  const { register, handleSubmit } = useForm()
+  let navigate = useNavigate()
   const { billingDetails, updateCheckout } = useCheckout()
-
-  const [billingFormValues, setBillingFormValues] = useState(billingDetails)
-
-  const handleChange = (e) =>
-    setBillingFormValues({
-      ...billingFormValues,
-      [e.target.name]: e.target.value,
-    })
-
-  const handleSubmit = () => {
-    updateCheckout({ billingDetails: billingFormValues })
-    history.push('/pay')
+  console.log(billingDetails)
+  const onSubmit = (data) => {
+    updateCheckout({ billingDetails: data })
+    navigate('/pay')
   }
 
   return (
-    <Card className="app-card">
-      <CardHeader>
-        <CardTitle>Billing Details</CardTitle>
-      </CardHeader>
-      <CardBody>
-        <Form>
-          <FormGroup>
-            <label htmlFor="username">Name</label>
-            <FormInput value={billingFormValues.name} onChange={handleChange} name="name" id="name" />
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="address">Address</label>
-            <FormTextarea value={billingFormValues.address} onChange={handleChange} name="address" id="address" />
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="phone">Phone</label>
-            <FormInput value={billingFormValues.phone} onChange={handleChange} name="phone" id="phone" />
-          </FormGroup>
-          <Button block onClick={handleSubmit}>
+    <Card title="Billing Details" className="app-card">
+      <form>
+        <div className="billing-group">
+          <label htmlFor="username">Name</label>
+          <input className="billing-input" {...register('name')} />
+        </div>
+        <div className="billing-group">
+          <label htmlFor="address">Address</label>
+          <textarea className="billing-input" {...register('address')} />
+        </div>
+        <div className="billing-group">
+          <label htmlFor="phone">Phone</label>
+          <input className="billing-input" {...register('phone')} />
+        </div>
+        <div className="billing-button">
+          <Button block onClick={handleSubmit(onSubmit)}>
             <span className="font-weight-bold">Save & Continue</span>
           </Button>
-        </Form>
-      </CardBody>
+        </div>
+      </form>
     </Card>
   )
 }
